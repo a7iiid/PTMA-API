@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<PtmaDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDBContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PtmaDBContext")));
 
 builder.Services.AddIdentity<UserModel, IdentityRole>()
     .AddEntityFrameworkStores<PtmaDBContext>();
