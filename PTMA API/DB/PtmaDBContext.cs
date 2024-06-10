@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PTMA_API.Model;
+using PTMA_API.Model.user;
 
 namespace PTMA.DB
 

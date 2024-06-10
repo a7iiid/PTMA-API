@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PTMA_API.Model
+namespace PTMA_API.Model.user
 {
     public class NewUserDTO
     {

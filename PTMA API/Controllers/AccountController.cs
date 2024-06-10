@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Data;
-using PTMA_API.Model;
 using PTMA.DB;
+using PTMA_API.Model.user;
 
 namespace library.Controllers
 {
@@ -33,6 +33,11 @@ namespace library.Controllers
             this.roleManager = roleManager;
             _db = db;
         }
+        /// <summary>
+        /// this function used for add new user 
+        /// </summary>
+        /// <param name="newUserDTO">model for new user [name ,email, password]</param>
+        /// <returns></returns>
 
         [HttpPost("Register")]
         public async Task<ActionResult> RegisterUser([FromBody] NewUserDTO newUserDTO)
@@ -61,6 +66,11 @@ namespace library.Controllers
             return BadRequest(ModelState);
         }
 
+        /// <summary>
+        /// this function used for login 
+        /// </summary>
+        /// <param name="user">model [email,Password]</param>
+        /// <returns></returns>
         [HttpPost("Login")]
         public async Task<ActionResult> Login([FromBody] LoginDTO user)
         {
@@ -74,7 +84,8 @@ namespace library.Controllers
                         var userRoles = await _userManager.GetRolesAsync(userModel);
 
                         // SigningCredentials
-                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
+                        var key = new SymmetricSecurityKey
+                            (Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
                         var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                         // Claims
@@ -85,23 +96,16 @@ namespace library.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
-                        foreach (var userRole in userRoles)
-                        {
-                            claims.Add(new Claim(ClaimTypes.Role, userRole));
-                        }
-                        foreach (var userRole in userRoles)
-                        {
-                            Console.WriteLine(userRole);
-                        }
+
 
                         var token = new JwtSecurityToken(
                             claims: claims,
                             issuer: _configuration["JWT:Issuer"],
                             audience: _configuration["JWT:Audience"],
-                            expires: DateTime.Now.AddHours(1),
+                            expires: DateTime.Now.AddMonths(1),
                             signingCredentials: signingCredentials
                         );
-
+                        //create token for authorization 
                         var _token = new
                         {
                             token = new JwtSecurityTokenHandler().WriteToken(token),

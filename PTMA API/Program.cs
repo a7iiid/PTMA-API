@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PTMA.DB;
 using PTMA.Models;
-using PTMA_API.Model;
+using PTMA_API.Model.user;
 using System.Reflection;
 using System.Text;
 
