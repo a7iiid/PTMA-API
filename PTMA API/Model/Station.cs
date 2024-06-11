@@ -11,11 +11,13 @@ namespace PTMA_API.Model
         [Required]
         public int Id { get; set; }
         [Required]
-        LatLong Location { get; set; }
+        public LatLong Location { get; set; }
+        
         public Station(string name,LatLong location)
         {
             Name = name;
             Location = location;
         }
+       
     }
 }
