@@ -20,35 +20,30 @@ namespace PTMA.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<Station>()
-               .ComplexProperty(s => s.Location, location =>
-               {
-                   location.Property(l => l.Latitude).HasColumnName("latitude");
-                   location.Property(l => l.Longitude).HasColumnName("longitude");
-               });
             modelBuilder.Entity<BusModel>()
                 .HasKey(b => b.Id);
 
-            // Configure owned type LatLong
             modelBuilder.Entity<BusModel>()
-                .ComplexProperty(b => b.busLocation, location =>
-                {
-                    location.Property(l => l.Latitude).HasColumnName("latitude");
-                    location.Property(l => l.Longitude).HasColumnName("longitude");
-                });
+                .OwnsOne(b => b.busLocation);
 
             modelBuilder.Entity<BusModel>()
-                .HasOne(b => b.startStation)
-                .WithMany(); // Configure relationship as needed
+                .HasOne(b => b.StartStation)
+                .WithMany()
+                .HasForeignKey(b => b.StartStationId)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<BusModel>()
-                .HasOne(b => b.endStation)
-                .WithMany();
-           
+                .HasOne(b => b.EndStation)
+                .WithMany()
+                .HasForeignKey(b => b.EndStationId)
+                .OnDelete(DeleteBehavior.Restrict); 
 
+            modelBuilder.Entity<Station>()
+                .OwnsOne(s => s.Location);
+            modelBuilder.Entity<Station>()
+                .HasKey(s => s.Id);
 
-            base.OnModelCreating(modelBuilder); // Ensure the base method is called to set up Identity tables
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

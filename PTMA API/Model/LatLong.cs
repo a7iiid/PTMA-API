@@ -3,16 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTMA_API.Model
 {
-    [ComplexType]
     public class LatLong
 
     {
+
         [Required]
         public double Latitude { get; set; }
         [Required]
         public double Longitude { get; set; }
-        
-  
+
+        public LatLong() { }
+
 
         public LatLong(double latitude, double longitude)
         {

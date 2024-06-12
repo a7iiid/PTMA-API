@@ -6,21 +6,42 @@ namespace PTMA_API.Model
 {
     public class BusModel
     {
-        [Key]
         [Required]
-        public int Id;
+        public int Id { get; }
         [Required]
-        public LatLong busLocation;
+        public LatLong busLocation { get; set; }
         [Required]
-        public Station startStation;
+        public int StartStationId { get; set; }
+        public Station StartStation { get; set; }
         [Required]
-        public Station endStation;
+        public int EndStationId { get; set; }
+        public Station EndStation { get; set; }
         [Required]
-        public string busname;
+        public string Busname { get; set; }
         [Required]
-        public string busnumber;
+        public int Busnumber { get; set; }
         [Required]
-        public bool isActive;
-        
+        public bool IsActive { get; set; }
+
+        public BusModel(
+            string name,
+            int num,
+            int endStationId,
+            LatLong location,
+            int startStationId)
+        {
+            Busname=name;
+            Busnumber=num;
+            IsActive=false;
+            EndStationId = endStationId;
+            StartStationId = startStationId;
+
+            
+        }
+        public BusModel()
+        {
+            
+        }
+
     }
 }
