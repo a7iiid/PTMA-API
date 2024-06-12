@@ -23,21 +23,16 @@ namespace PTMA_API.Model
         [Required]
         public bool IsActive { get; set; }
 
-        public BusModel(
-            string name,
-            int num,
-            int endStationId,
-            LatLong location,
-            int startStationId)
+        public BusModel(string name, int num, int endStationId, LatLong location, int startStationId)
         {
-            Busname=name;
-            Busnumber=num;
-            IsActive=false;
+            Busname = name;
+            Busnumber = num;
+            IsActive = false;
             EndStationId = endStationId;
             StartStationId = startStationId;
-
-            
+            busLocation = location; 
         }
+
         public BusModel()
         {
             
